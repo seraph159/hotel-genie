@@ -1,0 +1,46 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_hotel_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: dehotel
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - hotel_network
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - hotel_network
+
+  app:
+    image: hotel-genie
+    container_name: hotel_management_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/dehotel
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+    networks:
+      - hotel_network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  hotel_network:
+    driver: bridge
