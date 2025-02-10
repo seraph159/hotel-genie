@@ -20,8 +20,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/stripe")
+@Tag(name = "Stripe API", description = "Operations related to Stripe payment processing")
 public class StripeController {
 
     @Autowired
@@ -33,10 +41,33 @@ public class StripeController {
     @Value("${stripe.secretWebHookKey}")
     private String stripeWebHookKey;
 
-
     @PostMapping("/webhook")
-    public ResponseEntity<String> handleStripeWebhook(@RequestBody String payload, @RequestHeader("Stripe-Signature") String sigHeader) {
+    @Operation(
+            summary = "Handle Stripe webhook events",
+            description = "Processes Stripe webhook events, such as successful payments",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Webhook processed successfully",
+                            content = @Content(schema = @Schema(implementation = String.class))
+                    )
+            }
+    )
+    public ResponseEntity<?> handleStripeWebhook(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Raw payload from Stripe webhook",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = String.class))
+            )
+            @RequestBody String payload,
 
+            @Parameter(
+                    description = "Stripe-Signature header for verifying webhook authenticity",
+                    required = true,
+                    example = "t=123456789,v1=abc123"
+            )
+            @RequestHeader("Stripe-Signature") String sigHeader
+    ) {
         String endpointSecret = stripeWebHookKey; // Replace with your webhook secret
         Event event;
 
@@ -72,7 +103,29 @@ public class StripeController {
     }
 
     @GetMapping("/get-session")
-    public ResponseEntity<Object> getSessionDetails(@RequestParam("session_id") String sessionId) {
+    @Operation(
+            summary = "Get Stripe session details",
+            description = "Retrieves details of a Stripe checkout session by session ID",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Session details retrieved successfully",
+                            content = @Content(schema = @Schema(implementation = Map.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Failed to retrieve session details"
+                    )
+            }
+    )
+    public ResponseEntity<?> getSessionDetails(
+            @Parameter(
+                    description = "Stripe session ID",
+                    required = true,
+                    example = "cs_test_a1b2c3d4e5f6g7h8i9j0"
+            )
+            @RequestParam("session_id") String sessionId
+    ) {
         try {
             // Retrieve session details from Stripe
             Session session = stripeService.getSessionDetails(sessionId);

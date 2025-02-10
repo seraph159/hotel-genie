@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -26,5 +27,19 @@ public class OccupiesId implements Serializable {
     @Column(name = "booking_room_nr")
     private String bookingRoomNr;
 
-    // Getters, Setters, equals, hashCode
+    // Override equals and hashCode for composite key
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OccupiesId that = (OccupiesId) o;
+        return Objects.equals(clientEmail, that.clientEmail) &&
+                Objects.equals(bookingStartDate, that.bookingStartDate) &&
+                Objects.equals(bookingRoomNr, that.bookingRoomNr);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(clientEmail, bookingStartDate, bookingRoomNr);
+    }
 }

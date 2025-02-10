@@ -34,5 +34,4 @@ public class Booking {
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
-    // Getters and Setters, equals, hashCode, toString
 }

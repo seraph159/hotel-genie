@@ -43,6 +43,8 @@ public class SecurityConfig {
                     authorize.requestMatchers("/api/main/**").permitAll();
                     authorize.requestMatchers("/api/stripe/**").permitAll();
                     authorize.requestMatchers("/api/recommendations/**").permitAll();
+                    authorize.requestMatchers("/swagger-ui/**").permitAll();
+                    authorize.requestMatchers("/v3/api-docs/**").permitAll();
                     authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
 
                     // Role-based access control
