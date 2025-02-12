@@ -1,4 +1,6 @@
-# HotelGenie
+<div align="center">
+<img src="https://i.ibb.co/Rk7V6LM0/hms-logo.png" width="30%" />
+</div>
 
 HotelGenie is a comprehensive hotel management system designed to streamline the processes of hotel booking, room creation, user management, and reservations. This project utilizes cutting-edge technologies such as Java, Spring Boot, Next.js, Redis, and PostgreSQL to provide a secure, scalable, and user-friendly experience.
 
@@ -113,7 +115,7 @@ Below is the entity-relationship diagram of the database architecture:
 The system exposes 30+ RESTful APIs for managing various features.
 
 You can explore the API documentation using Swagger UI:
-- URL: `http://localhost:8080/swagger-ui.html`
+- URL: `http://localhost:8080/swagger-ui/index.html`
 
 ---
 
