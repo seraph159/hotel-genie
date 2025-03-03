@@ -6,30 +6,30 @@ HotelGenie is a comprehensive hotel management system designed to streamline the
 
 ---
 
-## Features
+## 🌟 Features
 
-### User Management
-- Secure authentication and authorization using **Spring Security** with JWT.
-- Role-based access control for administrators and customers.
+### 🔐 User Management
+- ✅ Secure authentication and authorization using **Spring Security** with JWT.
+- 👥 **Role-based access control** for administrators and customers.
 
-### Hotel Management
-- Efficient room creation and management.
-- Real-time availability tracking and reservation processes.
+### 🏨 Hotel Management
+- 🏠 **Efficient room creation** and management.
+- 📊 **Real-time availability tracking** and reservation processes.
 
-### Payment Integration
-- Seamless payment processing using **Stripe**, complete with custom webhooks.
-- Enhanced transaction speed by 40%.
+### 💳 Payment Integration
+- 💰 Seamless **payment processing** using **Stripe**, complete with custom webhooks.
+- ⚡ **Enhanced transaction speed** by **40%**.
 
-### AI-Powered Recommendations
-- Personalized hotel room recommendations using OpenAI models.
-- Improved user satisfaction through tailored suggestions.
+### 🤖 AI-Powered Recommendations
+- 🎯 **Personalized hotel room recommendations** using **OpenAI models**.
+- 😊 **Improved user satisfaction** through tailored suggestions.
 
-### Performance Optimization
-- Redis caching is used to reduce response times, validate tokens for login, and improve scalability.
+### ⚡ Performance Optimization
+- 🚀 **Redis caching** is used to **reduce response times**, **validate tokens for login**, and **improve scalability**.
 
 ---
 
-## Technologies Used
+## 🛠 Technologies Used
 
 ### Backend
 - **Java**: Core language for backend logic.
@@ -53,7 +53,7 @@ HotelGenie is a comprehensive hotel management system designed to streamline the
 
 ---
 
-## Getting Started
+## 🏁 Getting Started
 
 ### Prerequisites
 - Java 17+
@@ -62,47 +62,47 @@ HotelGenie is a comprehensive hotel management system designed to streamline the
 - Docker
 - AWS account (optional for deployment)
 
-### Installation
+### 📥 Installation
 
-1. Clone the repository:
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/seraph159/hotel-genie.git
    cd hotel-genie
    ```
 
-2. Set up the backend:
+2. **Set up the backend:**
    ```bash
    cd hms_backend
    ./mvnw clean install
    ```
-   - Configure the application properties in `src/main/resources/application.properties` for PostgreSQL, Redis, and Stripe credentials.
+   - 🛠 Configure `src/main/resources/application.properties` for **PostgreSQL, Redis, and Stripe credentials**.
 
-3. Set up the frontend:
+3. **Set up the frontend:**
    ```bash
    cd ../hms_frontend
    npm install
    npm run build
    ```
 
-4. Run the backend:
+4. **Run the backend:**
    ```bash
    cd ../hms_backend
    ./mvnw spring-boot:run
    ```
 
-5. Run the frontend:
+5. **Run the frontend:**
    ```bash
    cd ../hms_frontend
    npm run dev
    ```
 
-6. Access the application:
-   - Frontend: `http://localhost:3000`
-   - Backend APIs: `http://localhost:8080`
+6. **Access the application:**
+   - 🌍 **Frontend:** `http://localhost:3000`
+   - 🔗 **Backend APIs:** `http://localhost:8080`
 
 ---
 
-## ER Diagram
+## 📊 ER Diagram
 
 Below is the entity-relationship diagram of the database architecture:
 
@@ -110,16 +110,16 @@ Below is the entity-relationship diagram of the database architecture:
 
 ---
 
-## API Documentation
+## 📌 API Documentation
 
-The system exposes 30+ RESTful APIs for managing various features.
+The system exposes **30+ RESTful APIs** for managing various features.
 
-You can explore the API documentation using Swagger UI:
-- URL: `http://localhost:8080/swagger-ui/index.html`
+You can explore the **API documentation** using **Swagger UI**:
+- 📄 **URL:** `http://localhost:8080/swagger-ui/index.html`
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Please follow these steps:
 
@@ -140,13 +140,13 @@ Contributions are welcome! Please follow these steps:
 
 ---
 
-## License
+## 📜 License
 
 This project is licensed under the Apache-2.0 License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-## Acknowledgments
+## 🙌 Acknowledgments
 
 - **Spring Boot** team for their incredible framework.
 - **Stripe** for seamless payment integration.
