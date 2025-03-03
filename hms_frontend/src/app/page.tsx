@@ -5,6 +5,8 @@ import RoomsList from "@/components/RoomsList";
 import DatePicker from "@/components/DatePicker";
 import { fetchRooms, createBooking, deleteBooking } from "@/lib/api";
 import { useAuth } from "./context/AuthContext";
+import { FaSearch, FaExclamationCircle, FaCalendarAlt, FaHotel } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export default function HotelGenieHomePage() {
   const [startDate, setStartDate] = useState("");
@@ -47,9 +49,8 @@ export default function HotelGenieHomePage() {
     try {
       const fetchedRooms = await fetchRooms(startDate, endDate, minOccupancy);
       setRooms(fetchedRooms);
-      setError(null); // Clear error message
+      setError(null);
     } catch (err: unknown) {
-      
       if (err instanceof Error) {
         setError(err.message);
       } else {
@@ -93,17 +94,28 @@ export default function HotelGenieHomePage() {
 
   return (
     <div className="container flex flex-col items-center mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-center text-blue-700 mb-6">
-        Welcome to HotelGenie
-      </h1>
-      <p className="text-center text-gray-600 mb-8">
-        Your perfect getaway is just a few clicks away.
-      </p>
-      <div className="flex flex-col items-center bg-white rounded-lg p-6 mb-8">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-          Find Your Perfect Room
+      {/* Animated Title */}
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-4xl font-bold text-center text-blue-700 mb-6 flex items-center gap-2"
+      >
+        <FaHotel /> Welcome to HotelGenie
+      </motion.h1>
+      <p className="text-center text-gray-600 mb-8 italic">Your perfect getaway is just a few clicks away.</p>
+
+      {/* Search Card */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="flex flex-col items-center bg-white rounded-lg p-6 mb-8 shadow-md w-full max-w-2xl border border-gray-200"
+      >
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <FaCalendarAlt /> Find Your Perfect Room
         </h2>
-        <div className="flex flex-wrap gap-4 items-end">
+        <div className="flex flex-wrap gap-4 justify-center">
           <DatePicker label="Check-in Date" value={startDate} onChange={setStartDate} />
           <DatePicker label="Check-out Date" value={endDate} onChange={setEndDate} />
           <div>
@@ -112,18 +124,28 @@ export default function HotelGenieHomePage() {
               type="number"
               value={minOccupancy}
               onChange={(e) => setMinOccupancy(parseInt(e.target.value, 10))}
-              className="border rounded p-2 w-full focus:outline-blue-500"
+              className="border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
             />
           </div>
           <button
             onClick={handleFetchRooms}
-            className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="bg-blue-600 text-white py-2 px-4 rounded flex items-center gap-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
           >
-            Search Rooms
+            <FaSearch /> Search Rooms
           </button>
         </div>
-        {error && <div className="text-red-600 mt-4">{error}</div>}
-      </div>
+        {error && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-red-600 mt-4 flex items-center gap-2"
+          >
+            <FaExclamationCircle /> {error}
+          </motion.div>
+        )}
+      </motion.div>
+
+      {/* Rooms List */}
       <RoomsList rooms={rooms} onBook={handleBook} onCancel={handleCancel} />
     </div>
   );
