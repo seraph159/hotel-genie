@@ -9,17 +9,25 @@ export const fetchRooms = async (startDate: string, endDate: string, minOccupanc
   };
   
   export const createBooking = async (roomNr: string, startDate: string, endDate: string, accessToken: string) => {
-    const booking = { id: { startDate, roomNr }, price: 100, room: { roomNr }, endDate};
+    const booking = { id: { startDate, roomNr }, price: 100, room: { roomNr }, endDate };
     const response = await fetch("/api/bookings", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${accessToken}` },
       body: JSON.stringify(booking),
     });
     
-    if (!response.ok) throw new Error("Failed to create booking.");
-    const { checkoutLink } = await response.json();
-
-    // Redirect to Stripe Checkout
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to create booking.");
+    }
+    
+    const data = await response.json();
+    const { checkoutLink } = data;
+  
+    if (!checkoutLink || typeof checkoutLink !== "string") {
+      throw new Error("Invalid or missing checkout link from server.");
+    }
+  
     window.location.href = checkoutLink;
   };
   
