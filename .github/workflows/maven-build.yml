@@ -22,4 +22,3 @@ jobs:
 
       - name: Build and test with Maven
         run: mvn --batch-mode package
-        working-directory: ./hms_backend  # Adjust this path to your backend directory
