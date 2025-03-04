@@ -155,6 +155,19 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <!-- Prevent test cases errors during Maven building in CI -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <reuseForks>false</reuseForks>
+                    <forkCount>1</forkCount>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 
