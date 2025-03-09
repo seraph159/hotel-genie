@@ -80,7 +80,7 @@ public class ClientController {
                     )
             }
     )
-    public Client createClient(
+    public ResponseEntity<?> createClient(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "Client details to create",
                     required = true,
@@ -88,7 +88,8 @@ public class ClientController {
             )
             @RequestBody Client client
     ) {
-        return clientService.createClient(client);
+        clientService.createClient(client);
+        return ResponseEntity.ok("Client created successfully");
     }
 
     @PutMapping("/{email}/{phone}")
@@ -99,21 +100,49 @@ public class ClientController {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Client updated successfully",
-                            content = @Content(schema = @Schema(implementation = Client.class))
+                            description = "Client phone number updated successfully",
+                            content = @Content(mediaType = "text/plain")
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Client not found"
                     )
             }
     )
-    public ResponseEntity<Client> updateClient(
+    public ResponseEntity<String> updateClientPhone(
             @Parameter(description = "Email of the client", required = true, example = "client@example.com")
             @PathVariable String email,
-
             @Parameter(description = "New phone number of the client", required = true, example = "1234567890")
             @PathVariable String phone
     ) {
-        return clientService.updateClient(email, phone)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        clientService.updateClient(email, phone);
+        return ResponseEntity.ok("Client phone number updated successfully");
+    }
+
+    @PutMapping("/{email}")
+    @Operation(
+            summary = "Update a client",
+            description = "Updates a client by their email. Requires ADMIN role.",
+            security = @SecurityRequirement(name = "bearerAuth"),
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Client updated successfully",
+                            content = @Content(mediaType = "text/plain")
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Client not found"
+                    )
+            }
+    )
+    public ResponseEntity<String> updateClient(
+            @Parameter(description = "Email of the client", required = true, example = "client@example.com")
+            @PathVariable String email,
+            @RequestBody Client client
+    ) {
+        clientService.updateClient(email, client);
+        return ResponseEntity.ok("Client updated successfully");
     }
 
     @DeleteMapping("/{email}")
