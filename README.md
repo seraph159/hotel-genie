@@ -6,6 +6,11 @@ HotelGenie is a comprehensive hotel management system designed to streamline the
 
 ---
 
+## 🌐 Frontend Repository
+The frontend code for HotelGenie is located at: [https://github.com/seraph159/hotel-genie-frontend](https://github.com/seraph159/hotel-genie-frontend)
+
+---
+
 ## 🌟 Features
 
 ### 🔐 User Management
@@ -116,6 +121,18 @@ The system exposes **30+ RESTful APIs** for managing various features.
 
 You can explore the **API documentation** using **Swagger UI**:
 - 📄 **URL:** `http://localhost:8080/swagger-ui/index.html`
+
+---
+
+## 🔑 Mock Login Credentials
+
+### Admin
+- **Username:** `admin@hotelgenie.com`
+- **Password:** `password123`
+
+### Client
+- **Username:** `client@hotelgenie.com`
+- **Password:** `password123`
 
 ---
 
